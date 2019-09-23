@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="manifest" href="manifest.json">
+  <!-- <link href="style/style.css" rel="stylesheet" type="text/css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<form class="ui form attached fluid segment">
+  <div class="ui segment">
+    <div class="ui toggle checkbox">
+      <input type="checkbox" name="ext_active" id="ext_active" checked="true">
+      <label id="checkbox_label">ON</label>
+    </div>
+  </div>
+</form>
+<form class="ui form attached fluid segment">
+    <div class="field">
+      <label>Password</label>
+      <input type="text" id="password" value="">
+    </div>
+    <div class="field">
+      <label>Whitelist of youtube channels:</label>
+      <textarea id="wlist"></textarea>
+    </div>
+
+    <div class="field">
+      <button type="submit" class="positive ui button" id="save">Save</button>
+    </div>
+    <!-- <div class="ui success message"></div> -->
+</form>
+<!-- 
+ <div class="ui segment">
+    <div class="ui input">Password:
+       <input type="text" id="password" value="" >
+    </div>
+  </div>
+  <br>
+  <div class="ui segment">
+    <div>
+      <div>Whitelist of youtube channels: </div>
+      <div><textarea id="wlist" style="margin: 0px; height: 200px; width: 500px;"></textarea></div>
+
+    </div>
+    <br> -->
+
+<!-- <div class="message"></div> -->
+</body>
+<script src="options.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script> -->
+
+</html>
