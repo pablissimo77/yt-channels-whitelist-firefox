@@ -50,7 +50,7 @@ chrome.tabs.query({
         if (response.id) {
           element_notchannel_div.style.display = "none";
           element_channel_div.style.display = "";
-          element_channel_name.innerHTML = "<h3>" + response.name + "</h3>";
+          element_channel_name.textContent = response.name;
           element_channel_id.textContent = response.id;
           element_in_wlist.checked = in_whitelist(response.id);
         }
