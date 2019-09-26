@@ -6,7 +6,7 @@ var extension_is_active = false;
 var CHANNEL = {
     'type': 'channel',
     'name': '',
-    'id': '',
+    'id': null,
     'source': ''
 };
 
@@ -26,7 +26,7 @@ function worker(source) {
 
 function HideVideo() {
     var player = document.querySelector(".html5-video-player");
-    console.debug('HideVideo', player)
+    // console.debug('HideVideo', player)
     if (player) {
 
         player.style.display = "";
@@ -73,12 +73,12 @@ function HideVideo() {
 
 function update_channel(varNode) {
 
-    console.debug('update_channel start', varNode)
+    // console.debug('update_channel start', varNode)
 
     CHANNEL = {
         'type': 'channel',
         'name': '',
-        'id': '',
+        'id': null,
         'source': ''
     };
     if (varNode && varNode.getAttribute('href')) {
@@ -112,10 +112,10 @@ function checkNode() {
     // var xpath_string = '//div[@id="upload-info"]//yt-formatted-string/a|//div[@id="channel-header"]//yt-formatted-string[@class="style-scope ytd-channel-name"]'
     // var xpath_string = '//div[@id="meta"]|//div[@id="metadata-container"]'
     // var xpath_string = '//div[@id="continuations"]|//yt-formatted-string[@class="style-scope ytd-channel-name"]/a[@class="yt-simple-endpoint style-scope yt-formatted-string"]'
-    // var xpath_string = '//yt-formatted-string[@class="style-scope ytd-channel-name"]/a[@class="yt-simple-endpoint style-scope yt-formatted-string"]'
-    // var targetNode = document.evaluate(xpath_string, document, null, XPathResult.ANY_TYPE, null).iterateNext();
+    var xpath_string = '//yt-formatted-string[@class="style-scope ytd-channel-name"]/a[@class="yt-simple-endpoint style-scope yt-formatted-string"]'
+    var targetNode = document.evaluate(xpath_string, document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
-    var targetNode = document.querySelector("yt-formatted-string.style-scope.ytd-channel-name > a.yt-simple-endpoint.style-scope.yt-formatted-string");
+    // var targetNode = document.querySelector("yt-formatted-string.style-scope.ytd-channel-name > a.yt-simple-endpoint.style-scope.yt-formatted-string");
 
 
     if (!targetNode) {
@@ -137,8 +137,11 @@ function checkNode() {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
+    // console.debug('message', request, sender);
+
     if (request.type == 'channel') {
 
+        // console.debug('message channel', CHANNEL);
         sendResponse(CHANNEL);
 
     } else if (request.type == 'changes') {

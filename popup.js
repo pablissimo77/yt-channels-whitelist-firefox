@@ -1,21 +1,30 @@
 var storage = chrome.storage.sync;
 // var storage = chrome.storage.local;
 
-var element_channel_id = document.getElementById('channel_id');
-var element_channel_name = document.getElementById('channel_name');
-var element_in_wlist = document.getElementById('in_wlist');
 var element_security = document.getElementById('security');
 var element_password = document.getElementById('password');
-var element_main = document.getElementById('main');
-var element_channel_div = document.getElementById('channel_div');
-var element_notchannel_div = document.getElementById('notchannel');
+
+var element_notchannel = document.getElementById('notchannel');
+
+var element_channel = document.getElementById('channel');
 var element_active = document.getElementById('active');
-element_channel_div.style.display = "none";
-element_main.style.display = "none";
-element_password.focus();
+var element_channel_name = document.getElementById('channel_name');
+var element_channel_id = document.getElementById('channel_id');
+var element_in_wlist = document.getElementById('in_wlist');
+
+element_channel.style.display = "none";
+element_security.style.display = "none";
+
 
 var wlist = [];
 var password_in_storage = null;
+var extension_is_active = false;
+
+storage.get(['password', 'active', 'wlist'], function (result) {
+  wlist = result.wlist;
+  password_in_storage = result.password;
+  extension_is_active = result.active;
+});
 
 
 
@@ -43,18 +52,20 @@ chrome.tabs.query({
   }, function (response) {
     console.debug('CHANNEL', response)
     if (response) {
-      storage.get(['password', 'active', 'wlist'], function (result) {
-        wlist = result.wlist;
-        password_in_storage = result.password;
-        element_active.checked = result.active;
+      element_security.style.display = "";
+      element_password.focus();
+      // storage.get(['password', 'active', 'wlist'], function (result) {
+        // wlist = result.wlist;
+        // password_in_storage = result.password;
+        // element_active.checked = result.active;
+        element_active.checked = extension_is_active;
         if (response.id) {
-          element_notchannel_div.style.display = "none";
-          element_channel_div.style.display = "";
+          element_notchannel.style.display = "none";
           element_channel_name.textContent = response.name;
           element_channel_id.textContent = response.id;
           element_in_wlist.checked = in_whitelist(response.id);
         }
-      });
+      // });
 
     }
   });
@@ -118,8 +129,9 @@ element_in_wlist.addEventListener('change', function () {
 
 
 element_password.addEventListener('input', function (event) {
+  console.debug('element_password', password_in_storage)
   if (element_password.value == password_in_storage) {
-    element_main.style.display = "";
+    element_channel.style.display = "";
     element_security.style.display = "none";
   }
 });
