@@ -45,3 +45,4 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo) => {
         });
     }
 });
+
